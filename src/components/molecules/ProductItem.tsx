@@ -21,7 +21,7 @@ interface Props {
 const ProductItem: React.FC<Props> = ({ product, isEditable = true }) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const { data: session } = useSession();
+  const { status } = useSession();
   const error = useSelector((state:RootState) => state.productSlice.error);
   const cart = useSelector((state:RootState) => state.orderSlice.cart);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -84,7 +84,7 @@ const ProductItem: React.FC<Props> = ({ product, isEditable = true }) => {
               <Badge bg="secondary">Out of stock</Badge>
             )}
           </Card.Body>
-          {!session && isEditable && (
+          {(status === "authenticated") && isEditable && (
             <Card.Footer>
               <Link href={`/products/update/${product.id}`}>
                 <Button variant="primary" className="me-2">

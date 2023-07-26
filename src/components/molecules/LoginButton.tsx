@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 
 const LoginButton = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
 
   useEffect(() => {
     const token = session?.accessToken
@@ -22,9 +22,8 @@ const LoginButton = () => {
     <Row className='mt-5 mb-5'>
       <Col>
         {
-          session ?
+          (status === "authenticated")  ?
             <>
-              <p>Signed in as {session?.user?.name}</p>
               <Button variant='light' className='' onClick={() => signOut()}>Sign out</Button>
             </> :
             <>

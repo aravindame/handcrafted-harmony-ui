@@ -1,56 +1,26 @@
-// import service from '@/services'
-// import { NextApiRequest, NextApiResponse } from 'next'
-// import NextAuth, { NextAuthOptions } from 'next-auth'
-// import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from "next-auth"
+import Auth0Provider from "next-auth/providers/auth0"
 
-// interface ILoginResponse {
-//   id: string
-//   token: string
-//   name: string
-//   email: string
-// }
-
-// const options: NextAuthOptions = {
-//   secret: process.env.secret,
-//   providers: [
-//     CredentialsProvider({
-//       name: "admin credential",
-//       credentials: {
-//         email: { label: "Email", type: "email" },
-//         password: { label: "Password", type: "password" }
-//       },
-//       async authorize(credentials, req) {
-//         let user: ILoginResponse | undefined
-
-//         if (credentials?.email && credentials?.password) {
-//           user = await service.login(credentials)
-//         }
-
-//         if (user) {
-//           return {...user, token: user.token}
-//         } else {
-//           return null
-//         }
-//       }
-//     })
-//   ],
-//   callbacks: {
-//     async jwt({ token, user }) {
-//       if (user) {
-//         token.accessToken = user.token
-//       }
-//       return token
-//     },
-
-//     async session({ session, token }) {
-//       if (token) {
-//         session.accessToken = token.accessToken as string
-//       }
-//       return session
-//     }
-//   },
-// }
-
-
-// const aNextAuth = (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options)
-// export default aNextAuth
+export const authOptions = {
+  providers: [
+    Auth0Provider({
+        clientId: process.env.AUTH0_CLIENT_ID as string,
+        clientSecret: process.env.AUTH0_CLIENT_SECRET as string,
+        issuer: process.env.AUTH0_ISSUER_BASE_URL,
+      })
+  ],
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt(token: { accessToken: any; }, user: { accessToken: any; }) {
+      if (user) {
+        token.accessToken = user.accessToken;
+      }
+      return token;
+    },
+    async session(session: { user: any; }, token: any) {
+      session.user = token;
+      return session;
+    },
+  },
+}
+export default NextAuth(authOptions as any);

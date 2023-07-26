@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import LoginButton from '../molecules/LoginButton';
 
 const NavbarComponent = () => {
-  const { data: session } = useSession();
+  const { status } = useSession();
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -14,7 +14,7 @@ const NavbarComponent = () => {
         <Link href="/">
           <Navbar.Brand>Handcrafted Harmony</Navbar.Brand>
         </Link>
-        {!session && (
+        {(status === "authenticated") && (
           <Row>
             <Col className="mb-1">
               <Link href="/products/create">
