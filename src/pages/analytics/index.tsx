@@ -14,6 +14,7 @@ import { AppDispatch, RootState } from '@/store/store';
 
 const AnalyticsPage = () => {
   const { data: session } = useSession();
+
   const router = useRouter();
 
   const products = useSelector((state:RootState) => state.analyticSlice.analytics);
@@ -21,7 +22,7 @@ const AnalyticsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (session) {
+    if (!session) {
       router.replace('/', undefined, { shallow: true });
       notify('Unauthorized!', 'warning');
     }

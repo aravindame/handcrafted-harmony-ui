@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import IProduct from '@/types/product.interface';
-import { store } from '@/store/store';
+import { getSession } from 'next-auth/react';
 
 /**
  * Represents the initial state of the product slice.
@@ -52,10 +52,11 @@ const http = axios.create({
  */
 export const getAllProducts = createAsyncThunk<IProduct[], void>('product/getAllProducts', async () => {
   try {
-    const state = store.getState();
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       headers: {
-        Authorization: `Bearer ${state.authSlice.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json, text/plain, */*',
         Host: process.env.HEADERS_HOST,
         Origin: process.env.HEADERS_ORIGIN,
@@ -74,10 +75,11 @@ export const getAllProducts = createAsyncThunk<IProduct[], void>('product/getAll
  */
 export const addNewProduct = createAsyncThunk<IProduct, IProduct>('product/addNew', async (product) => {
   try {
-    const state = store.getState();
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       headers: {
-        Authorization: `Bearer ${state.authSlice.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json, text/plain, */*',
         Host: process.env.HEADERS_HOST,
         Origin: process.env.HEADERS_ORIGIN,
@@ -96,10 +98,11 @@ export const addNewProduct = createAsyncThunk<IProduct, IProduct>('product/addNe
  */
 export const getProductById = createAsyncThunk<IProduct, string>('product/getProductById', async (id) => {
   try {
-    const state = store.getState();
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       headers: {
-        Authorization: `Bearer ${state.authSlice.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json, text/plain, */*',
         Host: process.env.HEADERS_HOST,
         Origin: process.env.HEADERS_ORIGIN,
@@ -118,10 +121,11 @@ export const getProductById = createAsyncThunk<IProduct, string>('product/getPro
  */
 export const updateProduct = createAsyncThunk<IProduct, IUpdateProduct>('product/update', async (data) => {
   try {
-    const state = store.getState();
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       headers: {
-        Authorization: `Bearer ${state.authSlice.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json, text/plain, */*',
         Host: process.env.HEADERS_HOST,
         Origin: process.env.HEADERS_ORIGIN,
@@ -140,10 +144,11 @@ export const updateProduct = createAsyncThunk<IProduct, IUpdateProduct>('product
  */
 export const removeProduct = createAsyncThunk<string, string>('product/remove', async (id) => {
   try {
-    const state = store.getState();
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       headers: {
-        Authorization: `Bearer ${state.authSlice.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json, text/plain, */*',
         Host: process.env.HEADERS_HOST,
         Origin: process.env.HEADERS_ORIGIN,

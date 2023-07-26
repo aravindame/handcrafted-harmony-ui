@@ -9,17 +9,24 @@ export const authOptions = {
         issuer: process.env.AUTH0_ISSUER_BASE_URL,
       })
   ],
+  session: {
+     strategy: "jwt",
+  },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt(token: { accessToken: any; }, user: { accessToken: any; }) {
-      if (user) {
-        token.accessToken = user.accessToken;
+    async jwt({ token, account, profile }:any) {
+      if (account) {
+        token.accessToken = account.access_token
+        token.id = profile.id
       }
-      return token;
+      return token
     },
-    async session(session: { user: any; }, token: any) {
-      session.user = token;
-      return session;
+    async session({ session, token, user }:any) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.accessToken = token.accessToken
+      session.user.id = token.id
+      
+      return session
     },
   },
 }

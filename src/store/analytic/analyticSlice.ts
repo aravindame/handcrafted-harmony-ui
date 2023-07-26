@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import ICustomer from '@/types/customer.interface';
 import { RootState } from '@/store/store';
+import { getSession } from 'next-auth/react';
 
 // Define interfaces for the data used in the slice
 interface IOrderItem {
@@ -53,8 +54,8 @@ const http = axios.create({
 export const getAnalytics = createAsyncThunk<IAnalyticItem[], void>(
   'analytic/analytics',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    const token = state.authSlice.token;
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json, text/plain, */*',
@@ -78,8 +79,8 @@ export const getAnalytics = createAsyncThunk<IAnalyticItem[], void>(
 export const getOrders = createAsyncThunk<IOrders[], void>(
   'analytic/orders',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    const token = state.authSlice.token;
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json, text/plain, */*',

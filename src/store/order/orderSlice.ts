@@ -4,6 +4,7 @@ import IOrder from '@/types/order.interface';
 import IOrderItem from '@/types/order-item.interface';
 import ICustomer from '@/types/customer.interface';
 import { RootState, store } from '@/store/store';
+import { getSession } from 'next-auth/react';
 
 // Define other types and constants if required
 
@@ -33,7 +34,8 @@ export const placeOrder = createAsyncThunk<IOrder, ICustomer>(
   'order/placeOrder',
   async (customerDetails, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
-    const token = state.authSlice.token;
+    const session:any = await getSession();
+    const token = session?.accessToken;
     const headers = {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json, text/plain, */*',

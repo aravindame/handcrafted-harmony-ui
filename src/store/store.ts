@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import orderSlice from '@/store/order/orderSlice';
-import authSlice from '@/store/auth/authSlice';
 import analyticSlice from '@/store/analytic/analyticSlice';
 import productSlice from '@/store/product/product.slice';
 
@@ -11,7 +10,7 @@ import productSlice from '@/store/product/product.slice';
  * @returns The configured Redux store.
  */
 export const store = configureStore({
-  reducer: { authSlice, orderSlice, analyticSlice, productSlice },
+  reducer: { orderSlice, analyticSlice, productSlice },
 });
 
 /**

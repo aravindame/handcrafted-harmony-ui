@@ -18,12 +18,12 @@ const UpdateProduct = () => {
   const { productId } = router.query;
   const id = productId as string;
 
-  const product = useSelector((state:RootState) => state.productSlice.selectedProduct);
-  const isLoading = useSelector((state:RootState) => state.productSlice.loading);
-  const error = useSelector((state:RootState) => state.productSlice.error);
+  const product = useSelector((state: RootState) => state.productSlice.selectedProduct);
+  const isLoading = useSelector((state: RootState) => state.productSlice.loading);
+  const error = useSelector((state: RootState) => state.productSlice.error);
 
   useEffect(() => {
-    if (session) {
+    if (!session) {
       router.replace('/', undefined, { shallow: true });
       notify('Unauthorized!', 'warning');
     }

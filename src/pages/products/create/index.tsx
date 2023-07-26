@@ -20,7 +20,7 @@ const NewProduct = () => {
   const error = useSelector((state:RootState) => state.productSlice.error);
 
   useEffect(() => {
-    if (session) {
+    if (!session) {
       router.replace('/', undefined, { shallow: true });
       notify('Unauthorized!', 'warning');
     }
@@ -51,7 +51,7 @@ const NewProduct = () => {
       </Head>
       <main>
         {isLoading && <LoadingSpinner />}
-        {!session && <ManageProduct onSubmit={addProduct} />}
+        {session && <ManageProduct onSubmit={addProduct} />}
       </main>
     </>
   );
