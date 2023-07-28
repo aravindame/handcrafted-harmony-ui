@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, Row, Container, Col } from 'react-bootstrap';
+import { Form, Row, Container, Col, Alert } from 'react-bootstrap';
 
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
@@ -92,11 +92,14 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
       <Container>
         <Row className="mb-3">
           <Col md={{ span: 4, offset: 1 }}>
-            <img
+          {imagePreviewUrl === '' ? (
+              <Alert variant="primary">Please upload valid image URL</Alert>
+            ):(<img
               src={imagePreviewUrl}
               alt='Product Preview'
               style={{ maxWidth: '200px', maxHeight: '200px', marginBottom: '10px' }}
-            />
+            />)}
+            
           </Col>
           <Col md={{ span: 4, offset: 1 }}>
             <Input
