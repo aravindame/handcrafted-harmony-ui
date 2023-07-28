@@ -97,7 +97,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
             ):(<img
               src={imagePreviewUrl}
               alt='Product Preview'
-              style={{ maxWidth: '600px', maxHeight: '800px', marginBottom: '10px' }}
+              style={{ maxWidth: '400px', maxHeight: '600px', marginBottom: '10px' }}
             />)}
             
           </Col>
