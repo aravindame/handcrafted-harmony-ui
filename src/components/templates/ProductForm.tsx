@@ -36,6 +36,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
   const [price, setPrice] = useState(product?.price ?? 0);
   const [imageUrl, setImageUrl] = useState(product?.imageUrl ?? '');
   const [availableQuantity, setAvailableQuantity] = useState(product?.availableQuantity ?? 0);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(product?.imageUrl ?? '');
 
   useEffect(() => {
     const errors = validateProduct({
@@ -77,14 +78,27 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
     setIsSubmitted(true);
   };
 
+  const handleImageUrlChange = (value: string) => {
+    setImageUrl(value);
+    setImagePreviewUrl(value);
+  };
+
+
   const isFormValid = (inputName: string): boolean =>
     !!validationResult.find((result) => result === inputName);
 
   return (
     <Form noValidate validated={false} className="mt-5" onSubmit={handleSubmit}>
-      <Container >
+      <Container>
         <Row className="mb-3">
-          <Col md={{ span: 4, offset: 4 }}>
+          <Col md={{ span: 4, offset: 1 }}>
+            <img
+              src={imagePreviewUrl}
+              alt='Product Preview'
+              style={{ maxWidth: '200px', maxHeight: '200px', marginBottom: '10px' }}
+            />
+          </Col>
+          <Col md={{ span: 4, offset: 1 }}>
             <Input
               type='text'
               label='Title'
@@ -125,10 +139,10 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
             />
             <Input
               type='url'
-              label='Product Image url'
+              label='Product Image URL'
               placeholder='Enter image URL'
               value={imageUrl}
-              onChange={(value) => setImageUrl(value)}
+              onChange={handleImageUrlChange}
               isInvalid={isFormValid('imageUrl')}
             />
             <Button variant="primary" type="submit">

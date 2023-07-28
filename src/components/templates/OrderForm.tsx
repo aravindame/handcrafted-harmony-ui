@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Button from '@/components/atoms/Button'
 import Input from '../atoms/Input'
 import { validateOrder } from '@/util/form.validator'
-import { placeOrder } from '@/store/order/orderSlice'
+import { placeOrder,removeItemFromCart } from '@/store/order/orderSlice'
 import ICustomer from '@/types/customer.interface'
 import notify from '@/config/toast.config'
 import { AppDispatch, RootState } from '@/store/store'
@@ -17,9 +17,9 @@ const OrderForm = () => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const cart = useSelector((state:RootState) => state.orderSlice.cart)
-  const total = useSelector((state:RootState) => state.orderSlice.totalOrder)
-  const error = useSelector((state:RootState) => state.productSlice.error)
+  const cart = useSelector((state: RootState) => state.orderSlice.cart)
+  const total = useSelector((state: RootState) => state.orderSlice.totalOrder)
+  const error = useSelector((state: RootState) => state.productSlice.error)
 
   const [formData, setFormData] = useState<ICustomer>({
     customerName: '',
@@ -47,20 +47,23 @@ const OrderForm = () => {
     e.preventDefault()
     setIsSubmitted(true)
     const errors = validateOrder(formData)
-
     if (errors.length === 0) {
       dispatch(placeOrder(formData))
-      .then((response) => {
-        if (response.payload) {
-          notify("Order placed successful!")
-          router.replace('/', undefined, { shallow: true })
-        }
-      })
+        .then((response) => {
+          if (response.payload) {
+            notify("Order placed successful!")
+            router.replace('/', undefined, { shallow: true })
+          }
+        })
     }
   }
 
+  const handleItemRemoveFromCart = (productId:string)=>{
+
+  }
+
   const isFormValid = (inputName: string): boolean =>
-  !!validationResult.find(result => result === inputName)
+    !!validationResult.find(result => result === inputName)
 
   return (
     <Container>
@@ -75,16 +78,21 @@ const OrderForm = () => {
                   <Card.Img src={item.imageUrl} alt={item.title} />
                 </Col>
                 <Col md={9}>
-                  <Card.Body>
+                  <Card.Body className='text-left'>
                     <Card.Title>{item.title}</Card.Title>
                     <Card.Text>
                       Price: {item.quantity} x {item.price}
                     </Card.Text>
+                    {/* Close button */}
+                    <Button variant="danger" onClick={() => dispatch(removeItemFromCart(item.productId))}>
+                      Remove Item
+                    </Button>
                   </Card.Body>
                 </Col>
               </Row>
             </Card>
           ))}
+
           <p className="mt-3">Total order: Rs {total.toFixed(2)}</p>
         </Col>
         <Col md={{ span: 5, offset: 1 }}>
