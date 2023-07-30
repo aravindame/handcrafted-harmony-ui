@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import orderSlice from '@/store/order/orderSlice';
-import analyticSlice from '@/store/analytic/analyticSlice';
+import orderSlice from '@/store/order/order.slice';
+import analyticSlice from '@/store/analytics/analytics.slice';
 import productSlice from '@/store/product/product.slice';
 
 /**

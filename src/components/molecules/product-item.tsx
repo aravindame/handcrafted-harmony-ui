@@ -3,15 +3,21 @@ import { useRouter } from 'next/router';
 import { Badge, Card, Col } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-
 import IProduct from '@/types/product.interface';
-import Button from '@/components/atoms/Button';
-import { addToCart } from '@/store/order/orderSlice';
-import DeleteModal from '../templates/DeleteModal';
+import Button from '@/components/atoms/button';
+import { addToCart } from '@/store/order/order.slice';
 import { removeProduct } from '@/store/product/product.slice';
 import notify from '@/config/toast.config';
 import { AppDispatch, RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
+import useErrorNotifyHandler from '@/hooks/useErrorNotifyHandler';
+import Modal from './modal';
+
+/**
+ * A reusable component that displays a card for a product item with various actions like adding to cart, updating, and deleting.
+ * @param {Props} props - The properties to configure the ProductItem component.
+ * @returns {JSX.Element} The ProductItem component displaying the card for the product.
+ */
 
 interface Props {
   product: IProduct | any;
@@ -27,11 +33,7 @@ const ProductItem: React.FC<Props> = ({ product, isEditable = true }) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [countOnCart, setCountOnCart] = useState<number>(0);
 
-  useEffect(() => {
-    if (error) {
-      notify(`Failed! - ${error}`, 'error');
-    }
-  }, [error]);
+  useErrorNotifyHandler(error);
 
   useEffect(() => {
     const cartData = cart.find((item:any) => item.productId === product.id);
@@ -64,10 +66,14 @@ const ProductItem: React.FC<Props> = ({ product, isEditable = true }) => {
 
   return (
     <>
-      <DeleteModal
+      <Modal
         isModalVisible={isModalVisible}
         onConfirm={onDeleteConfirm}
         onCancel={onDeleteCancel}
+        variant="danger"
+        title = "Confirm Delete"
+        message = "Are you sure you want to delete this product?" 
+        confirmBtnText = "Delete"
       />
       < Col md={3} className="mt-3">
         <Card>

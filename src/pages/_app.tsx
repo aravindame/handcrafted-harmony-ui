@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import { SessionProvider } from "next-auth/react"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'react-toastify/dist/ReactToastify.min.css'
-import NavBar from '@/components/templates/NavBar'
+import NavBar from '@/components/organisms/nav-bar'
 import { store } from '@/store/store'
 
 export default function App({ Component, pageProps: {session, ...pageProps} }: AppProps) {

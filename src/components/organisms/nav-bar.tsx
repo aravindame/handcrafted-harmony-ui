@@ -1,9 +1,15 @@
 import Link from 'next/link';
 import { Navbar, Container, Row, Col } from 'react-bootstrap';
-import Cart from '@/components/molecules/Cart';
-import Button from '@/components/atoms/Button';
+import Button from '@/components/atoms/button';
 import { useSession } from 'next-auth/react';
-import LoginButton from '../molecules/LoginButton';
+import LoginButton from '../molecules/login-button';
+import Cart from '../molecules/cart';
+
+/**
+ * A reusable component that represents the navigation bar of the application.
+ * It displays the brand logo, navigation links, and user-related buttons like login and cart.
+ * @returns {JSX.Element} The NavbarComponent displaying the navigation bar.
+ */
 
 const NavbarComponent = () => {
   const { status } = useSession();

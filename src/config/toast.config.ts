@@ -25,7 +25,14 @@ const defaultOptions: ToastOptions = {
   theme: ToastTheme.Light,
 };
 
-// Function to display toast notification
+/**
+ * notify Function
+ * 
+ * Function to display toast notifications using react-toastify.
+ * 
+ * @param {string} message - The message to display in the toast notification.
+ * @param {string} status - The status of the toast notification. Default is 'success'.
+ */
 const notify = (message: string, status: string = ToastStatus.Success) => {
   switch (status) {
     case ToastStatus.Success:

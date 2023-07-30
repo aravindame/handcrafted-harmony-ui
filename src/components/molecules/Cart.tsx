@@ -1,9 +1,14 @@
 import { Badge } from 'react-bootstrap';
 import { FaShoppingCart } from 'react-icons/fa';
 import Link from 'next/link';
-import Button from '@/components/atoms/Button';
+import Button from '@/components/atoms/button';
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store';
+
+/**
+ * A shopping cart icon component with the quantity badge displayed using React Bootstrap Badge.
+ * @returns {JSX.Element} The Cart component displaying the shopping cart icon and the quantity badge.
+ */
 
 const Cart: React.FC = () => {
   const quantity = useSelector((state: RootState) => state.orderSlice.quantity);

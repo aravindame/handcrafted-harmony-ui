@@ -1,4 +1,4 @@
-import Button from '@/components/atoms/Button'
+import Button from '@/components/atoms/button'
 import { render, screen } from '@testing-library/react'
 
 

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import ICustomer from '@/types/customer.interface';
-import { RootState } from '@/store/store';
 import { getSession } from 'next-auth/react';
 
 // Define interfaces for the data used in the slice

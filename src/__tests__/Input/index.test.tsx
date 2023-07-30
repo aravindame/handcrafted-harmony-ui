@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import Input from '@/components/atoms/Input'
+import Input from '@/components/atoms/input'
 
 describe('Input component', () => {
   test('renders with correct label and placeholder', () => {

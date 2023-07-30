@@ -1,6 +1,12 @@
 import { Row, Container, Col } from 'react-bootstrap';
 import IProduct from '@/types/product.interface';
-import ProductForm from '@/components/templates/ProductForm';
+import ProductForm from '@/components/templates/product-form';
+
+/**
+ * A component for managing product data.
+ * @param {IManageProductProps} props - The component props.
+ * @returns {JSX.Element} The ManageProduct component.
+ */
 
 interface IManageProductProps {
   onSubmit: (product: IProduct) => void;

@@ -2,14 +2,25 @@ import { useEffect, useState } from 'react'
 import { Container, Form, Card, Row, Col } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 
-import Button from '@/components/atoms/Button'
-import Input from '../atoms/Input'
+import Button from '@/components/atoms/button'
+import Input from '../atoms/input'
 import { validateOrder } from '@/util/form.validator'
-import { placeOrder,removeItemFromCart } from '@/store/order/orderSlice'
+import { placeOrder,removeItemFromCart } from '@/store/order/order.slice'
 import ICustomer from '@/types/customer.interface'
 import notify from '@/config/toast.config'
 import { AppDispatch, RootState } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
+import useErrorNotifyHandler from '@/hooks/useErrorNotifyHandler'
+
+/**
+ * OrderForm Component
+ * 
+ * Renders the order form to place an order and provide customer information.
+ * Displays cart items and the total order amount.
+ * Handles form validation and submission of the order.
+ * 
+ * @returns {JSX.Element} JSX Element representing the OrderForm.
+ */
 
 const OrderForm = () => {
   const [validationResult, setValidationResult] = useState<string[]>([])
@@ -37,11 +48,7 @@ const OrderForm = () => {
     setFormData({ ...formData, [customerName]: value })
   }
 
-  useEffect(() => {
-    if (error) {
-      notify(`Failed! - ${error}`, 'error')
-    }
-  }, [error, router])
+  useErrorNotifyHandler(error);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -56,10 +63,6 @@ const OrderForm = () => {
           }
         })
     }
-  }
-
-  const handleItemRemoveFromCart = (productId:string)=>{
-
   }
 
   const isFormValid = (inputName: string): boolean =>

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import DeleteModal from '@/components/templates/DeleteModal'
+import DeleteModal from '@/components/molecules/delete-modal'
 
 describe('Modal', () => {
   it('renders Delete modal', () => {

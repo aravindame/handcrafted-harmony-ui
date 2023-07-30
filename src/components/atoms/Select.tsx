@@ -1,5 +1,11 @@
 import { Form } from 'react-bootstrap'
 
+/**
+ * Reusable Select component using React Bootstrap Form.
+ * @param {SelectProps} props - Props for configuring the select.
+ * @returns {JSX.Element} The Select component with a label and options.
+ */
+
 interface SelectProps {
   label: string,
   value: string,

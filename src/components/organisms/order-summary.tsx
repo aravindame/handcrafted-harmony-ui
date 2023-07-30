@@ -3,6 +3,12 @@ import { RootState } from '@/store/store'
 import { Accordion, Card, Container, Table } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
+/**
+ * A component that displays the summary of orders.
+ * It shows a list of orders with details such as customer information, order items, and addresses.
+ * @returns {JSX.Element} The OrderSummary component displaying the order details.
+ */
+
 const OrderSummary = () => {
   const orders = useSelector((state:RootState) => state.analyticSlice.orders)
 

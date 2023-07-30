@@ -1,11 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Form, Row, Container, Col, Alert } from 'react-bootstrap';
 
-import Button from '@/components/atoms/Button';
-import Input from '@/components/atoms/Input';
-import Select from '@/components/atoms/Select';
+import Button from '@/components/atoms/button';
+import Input from '@/components/atoms/input';
 import IProduct from '@/types/product.interface';
 import { validateProduct } from '@/util/form.validator';
+import Select from '../atoms/select';
+
+/**
+ * ProductForm Component
+ * 
+ * Renders a form for adding or updating a product with the provided data.
+ * Handles form validation and submission of the product data.
+ * 
+ * @param {IProductFormProps} props - Component props.
+ * @param {Function} props.onSubmit - Function to handle form submission and pass the product data.
+ * @param {IProduct | null} props.product - The product data to pre-fill the form for updating. Null for adding a new product.
+ * 
+ * @returns {JSX.Element} JSX Element representing the ProductForm.
+ */
 
 interface IProductFormProps {
   onSubmit: (product: IProduct) => void;

@@ -1,11 +1,15 @@
 import { useSession, signIn, signOut } from "next-auth/react"
-import Button from '../atoms/Button'
+import Button from '../atoms/button'
 import { Col, Row } from 'react-bootstrap'
 
+/**
+ * A login button component that handles authentication status using NextAuth's useSession hook.
+ * @returns {JSX.Element} The LoginButton component displaying a "Sign in" or "Sign out" button based on the authentication status.
+ */
 
 const LoginButton = () => {
 
-  const { data: session, status } = useSession()
+  const { status } = useSession()
 
   return (
     <Row className='mt-5 mb-5'>

@@ -1,5 +1,11 @@
 import { Form } from 'react-bootstrap'
 
+/**
+ * Reusable Input component using React Bootstrap Form.
+ * @param {InputProps} props - Props for configuring the input.
+ * @returns {JSX.Element} The Input component with a label, input field, and validation feedback.
+ */
+
 interface InputProps {
   label: string,
   value: string,
