@@ -1,3 +1,4 @@
+import React from 'react';
 import { Spinner as BootstrapSpinner } from 'react-bootstrap';
 
 /**
@@ -14,5 +15,4 @@ const Spinner = () => {
   );
 };
 
-export default Spinner;
-
+export default BootstrapSpinner;
