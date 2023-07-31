@@ -20,7 +20,6 @@ const withAuth = <P extends WithAuthProps>(WrappedComponent: React.FC<P>) => {
     useEffect(() => {
       if (!session) {
         router.replace('/', undefined, { shallow: true });
-        notify('Unauthorized!', 'warning');
       }
     }, [session, router]);
     if (!session) {

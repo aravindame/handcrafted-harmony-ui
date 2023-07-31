@@ -52,7 +52,6 @@ const validateOrder = async (customer: ICustomer): Promise<string[] | any> => {
   }
 };
 
-
 /**
  * Validates the product details provided in the IProduct object.
  * @param {IProduct} product - The IProduct object containing product details.

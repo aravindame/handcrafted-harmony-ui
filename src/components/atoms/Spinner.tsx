@@ -7,13 +7,12 @@ import BootstrapSpinner from 'react-bootstrap/Spinner';
  */
 const Spinner = () => {
   return (
-    <div className="container">
-      <BootstrapSpinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
+    <div className='container'>
+      <BootstrapSpinner animation='border' role='status'>
+        <span className='visually-hidden'>Loading...</span>
       </BootstrapSpinner>
     </div>
   );
-}
+};
 
 export default Spinner;
-

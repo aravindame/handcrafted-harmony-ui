@@ -5,7 +5,7 @@ import Input from '@/components/atoms/Input';
 import IProduct from '@/types/product.interface';
 import { validateProduct } from '@/util/form.validator';
 import Select from '../atoms/Select';
-import Image from 'next/image';
+import ImageFrame from '../molecules/ImageFrame';
 
 /**
  * ProductForm Component
@@ -130,15 +130,7 @@ const ProductForm: React.FC<IProductFormProps> = ({
             {imagePreviewUrl === '' ? (
               <Alert variant='primary'>Please upload valid image URL</Alert>
             ) : (
-              <Image
-                src={imagePreviewUrl}
-                alt='Product Preview'
-                style={{
-                  maxWidth: '400px',
-                  maxHeight: '600px',
-                  marginBottom: '10px',
-                }}
-              />
+              <ImageFrame imagePreviewUrl={imagePreviewUrl} />
             )}
           </Col>
           <Col md={{ span: 4, offset: 1 }}>
