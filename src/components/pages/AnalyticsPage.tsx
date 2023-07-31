@@ -7,8 +7,7 @@ import ProductItem from '@/components/molecules/ProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import withAuth from '@/hoc/withAuth';
-import BootstrapSpinner from '../atoms/Spinner';
-
+import BootstrapSpinner from '@/components/atoms/Spinner';
 /**
  * AnalyticsPage component displays analytics and sales summary data for the user.
  *
