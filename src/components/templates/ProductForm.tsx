@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Form, Row, Container, Col, Alert } from 'react-bootstrap';
-
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import IProduct from '@/types/product.interface';
 import { validateProduct } from '@/util/form.validator';
 import Select from '../atoms/Select';
+import Image from 'next/image';
 
 /**
  * ProductForm Component
@@ -130,7 +130,7 @@ const ProductForm: React.FC<IProductFormProps> = ({
             {imagePreviewUrl === '' ? (
               <Alert variant='primary'>Please upload valid image URL</Alert>
             ) : (
-              <img
+              <Image
                 src={imagePreviewUrl}
                 alt='Product Preview'
                 style={{

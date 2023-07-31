@@ -1,3 +1,5 @@
-import ListProductsPage from '@/components/pages/ListProductPage';
+import ListProducts from '@/components/pages/ListProductPage';
 
-export default () => <ListProductsPage />;
+const ListProductsPage = () => <ListProducts />;
+
+export default ListProductsPage;

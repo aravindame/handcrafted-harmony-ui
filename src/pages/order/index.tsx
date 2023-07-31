@@ -1,3 +1,5 @@
-import OrdersPage from '@/components/pages/OrdersPage';
+import Orders from '@/components/pages/OrdersPage';
 
-export default () => <OrdersPage />;
+const OrdersPage = () => <Orders />;
+
+export default OrdersPage;

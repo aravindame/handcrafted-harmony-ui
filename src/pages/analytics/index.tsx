@@ -1,3 +1,5 @@
 import Analytics from '@/components/pages/AnalyticsPage';
 
-export default () => <Analytics />;
+const AnalyticsPage = () => <Analytics />;
+
+export default AnalyticsPage;
