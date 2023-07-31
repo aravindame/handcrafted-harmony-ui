@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import notify from '@/config/toast.config';
-import Spinner from '@/components/atoms/LoadingSpinner';
+import Spinner from '@/components/atoms/Spinner';
 
 type WithAuthProps = {
   productId?: string;

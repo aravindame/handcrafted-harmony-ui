@@ -56,7 +56,6 @@ export const getAllProducts = createAsyncThunk<IProduct[], void>(
     try {
       const session: any = await getSession();
       const token = session?.accessToken;
-      console.log(token);
       const headers = {
         headers: {
           Authorization: `Bearer ${token}`,
