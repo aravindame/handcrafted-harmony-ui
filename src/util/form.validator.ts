@@ -7,9 +7,13 @@ import IProduct from '@/types/product.interface';
  */
 
 const customerSchema = Yup.object().shape({
-  customerName: Yup.string().required('Customer Name is required').matches(/^[A-Za-z]/, 'Invalid customer name format'),
+  customerName: Yup.string()
+    .required('Customer Name is required')
+    .matches(/^[A-Za-z]/, 'Invalid customer name format'),
   address: Yup.string().required('Address is required'),
-  contact: Yup.string().required('Contact is required').matches(/^\+?\d{10}$/, 'Invalid contact number format'),
+  contact: Yup.string()
+    .required('Contact is required')
+    .matches(/^\+?\d{10}$/, 'Invalid contact number format'),
 });
 
 /**
@@ -20,7 +24,9 @@ const productSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   description: Yup.string().required('Description is required'),
   category: Yup.string().required('Category is required'),
-  price: Yup.number().positive('Price must be a positive number').required('Price is required'),
+  price: Yup.number()
+    .positive('Price must be a positive number')
+    .required('Price is required'),
   imageUrl: Yup.string().required('Image URL is required'),
   availableQuantity: Yup.number()
     .positive('Available quantity must be a positive number')

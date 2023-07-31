@@ -1,3 +1,3 @@
-import MutateProductPage from "@/components/pages/mutate-product-page";
+import MutateProductPage from '@/components/pages/MutateProductPage';
 
 export default () => <MutateProductPage />;

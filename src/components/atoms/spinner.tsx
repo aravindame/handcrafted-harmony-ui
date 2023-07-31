@@ -5,12 +5,14 @@ import Spinner from 'react-bootstrap/Spinner';
  * @returns {JSX.Element} The LoadingSpinner component displaying a loading spinner animation.
  */
 
-export default () => {
+const SpinnerComponent = () => {
   return (
-    <div className="container">
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
+    <div className='container'>
+      <Spinner animation='border' role='status'>
+        <span className='visually-hidden'>Loading...</span>
       </Spinner>
     </div>
   );
 };
+
+export default SpinnerComponent;

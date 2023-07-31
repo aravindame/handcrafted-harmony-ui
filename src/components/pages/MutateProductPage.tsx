@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-
-import Spinner from '@/components/atoms/spinner';
+import Spinner from '@/components/atoms/Spinner';
 import IProduct from '@/types/product.interface';
 import { addNewProduct, updateProduct } from '@/store/product/product.slice';
-import ManageProduct from '@/components/templates/manage-product';
+import ManageProduct from '@/components/templates/ManageProduct';
 import notify from '@/config/toast.config';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
@@ -21,19 +20,23 @@ interface CreateProductPageProps {
   productId?: string;
 }
 
-const MutateProductPage : React.FC<CreateProductPageProps> = ({ productId }) => {
+const MutateProductPage: React.FC<CreateProductPageProps> = ({ productId }) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useSelector((state: RootState) => state.productSlice.loading);
+  const isLoading = useSelector(
+    (state: RootState) => state.productSlice.loading
+  );
   const error = useSelector((state: RootState) => state.productSlice.error);
 
   useErrorNotifyHandler(error);
 
   const handleProductMutation = async (product: IProduct) => {
-    const mutation = productId ? 'update' : 'create'
+    const mutation = productId ? 'update' : 'create';
     try {
-      const response = mutation === 'create' ? await dispatch(addNewProduct(product)) 
-                                             : await dispatch(updateProduct({ id: productId ?? "", product }));
+      const response =
+        mutation === 'create'
+          ? await dispatch(addNewProduct(product))
+          : await dispatch(updateProduct({ id: productId ?? '', product }));
       if (response.payload) {
         notify(`Product ${mutation}d successfully!`);
         router.replace('/', undefined, { shallow: true });
@@ -49,9 +52,11 @@ const MutateProductPage : React.FC<CreateProductPageProps> = ({ productId }) => 
         <title>Add new product</title>
       </Head>
       <main>
-        {
-          isLoading ? <Spinner /> : <ManageProduct onSubmit={handleProductMutation} />
-        }
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <ManageProduct onSubmit={handleProductMutation} />
+        )}
       </main>
     </>
   );

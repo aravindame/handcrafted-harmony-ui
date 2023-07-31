@@ -1,4 +1,3 @@
+import OrdersPage from '@/components/pages/OrdersPage';
 
-import OrdersPage from '@/components/pages/orders-page';
-
-export default () => <OrdersPage />
+export default () => <OrdersPage />;

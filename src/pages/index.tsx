@@ -1,4 +1,3 @@
-import ListProductsPage from "@/components/pages/list-product-page";
+import ListProductsPage from '@/components/pages/ListProductPage';
 
-export default ()=> <ListProductsPage />
-
+export default () => <ListProductsPage />;

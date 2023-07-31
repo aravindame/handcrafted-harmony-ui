@@ -12,13 +12,13 @@ const ErrorPage = () => {
   const errorMessage = router.query.message || 'Oops! Something went wrong.';
 
   return (
-    <Container className="mt-5">
+    <Container className='mt-5'>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <Alert variant="danger" className="text-center">
+          <Alert variant='danger' className='text-center'>
             <h4>{errorCode}</h4>
             <p>{errorMessage}</p>
-            <Button variant="primary" onClick={() => router.push('/')}>
+            <Button variant='primary' onClick={() => router.push('/')}>
               Go Back to Home
             </Button>
           </Alert>

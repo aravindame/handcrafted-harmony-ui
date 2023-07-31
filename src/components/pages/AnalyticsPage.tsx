@@ -2,24 +2,27 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { Col, Container, Row, Table } from 'react-bootstrap';
 
-import OrderSummary from '@/components/organisms/order-summary';
+import OrderSummary from '@/components/organisms/OrderSummary';
 import { getAnalytics, getOrders } from '@/store/analytics/analytics.slice';
-import ProductItem from '@/components/molecules/product-item';
-import Spinner from '@/components/atoms/spinner';
+import ProductItem from '@/components/molecules/ProductItem';
+import Spinner from '@/components/atoms/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import withAuth from '@/hoc/withAuth';
 
 /**
- * AnalyticsPage component displays analytics and sales summary data for the user. 
- * 
+ * AnalyticsPage component displays analytics and sales summary data for the user.
+ *
  * @component
  */
 
 const AnalyticsPage = () => {
-
-  const products = useSelector((state:RootState) => state.analyticSlice.analytics);
-  const isLoading = useSelector((state:RootState) => state.analyticSlice.loading);
+  const products = useSelector(
+    (state: RootState) => state.analyticSlice.analytics
+  );
+  const isLoading = useSelector(
+    (state: RootState) => state.analyticSlice.loading
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -78,7 +81,9 @@ const AnalyticsPage = () => {
                   <tr key={product.id}>
                     <td>{++index}</td>
                     <td>{product.title}</td>
-                    <td>{product.totalQuantity} x {product.price}</td>
+                    <td>
+                      {product.totalQuantity} x {product.price}
+                    </td>
                     <td>Rs {product.sumPrice?.toFixed(2)}</td>
                   </tr>
                 ))}
@@ -94,4 +99,4 @@ const AnalyticsPage = () => {
   );
 };
 
-export default withAuth(AnalyticsPage); 
+export default withAuth(AnalyticsPage);

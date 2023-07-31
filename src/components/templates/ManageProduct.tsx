@@ -1,6 +1,6 @@
 import { Row, Container, Col } from 'react-bootstrap';
 import IProduct from '@/types/product.interface';
-import ProductForm from '@/components/templates/product-form';
+import ProductForm from '@/components/templates/ProductForm';
 
 /**
  * A component for managing product data.

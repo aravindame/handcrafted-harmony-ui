@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "prettier": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\""
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -21,6 +22,7 @@
     "eslint-config-next": "13.4.5",
     "next": "13.4.5",
     "next-auth": "^4.22.1",
+    "prettier": "^3.0.0",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",

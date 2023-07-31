@@ -2,10 +2,10 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import notify from '@/config/toast.config';
-import Spinner from '@/components/atoms/spinner';
+import Spinner from '@/components/atoms/Spinner';
 
 type WithAuthProps = {
-  productId?:string;
+  productId?: string;
 };
 
 /**
@@ -14,7 +14,7 @@ type WithAuthProps = {
  * @returns The wrapped component with authentication logic.
  */
 const withAuth = <P extends WithAuthProps>(WrappedComponent: React.FC<P>) => {
-  return (props: P) => {
+  const WithAuthComponent: React.FC<P> = (props: P) => {
     const { data: session } = useSession();
     const router = useRouter();
     useEffect(() => {
@@ -26,8 +26,14 @@ const withAuth = <P extends WithAuthProps>(WrappedComponent: React.FC<P>) => {
     if (!session) {
       return <Spinner />;
     }
-    return <WrappedComponent {...props}/>;
+    return <WrappedComponent {...props} />;
   };
+
+  const displayName =
+    WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  WithAuthComponent.displayName = `withAuth(${displayName})`;
+
+  return WithAuthComponent;
 };
 
 export default withAuth;

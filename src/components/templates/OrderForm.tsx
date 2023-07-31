@@ -1,77 +1,79 @@
-import { useEffect, useState } from 'react'
-import { Container, Form, Card, Row, Col } from 'react-bootstrap'
-import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import { Container, Form, Card, Row, Col } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 
-import Button from '@/components/atoms/button'
-import Input from '../atoms/input'
-import { validateOrder } from '@/util/form.validator'
-import { placeOrder,removeItemFromCart } from '@/store/order/order.slice'
-import ICustomer from '@/types/customer.interface'
-import notify from '@/config/toast.config'
-import { AppDispatch, RootState } from '@/store/store'
-import { useDispatch, useSelector } from 'react-redux'
-import useErrorNotifyHandler from '@/hooks/useErrorNotifyHandler'
+import Button from '@/components/atoms/Button';
+import Input from '../atoms/Input';
+import { validateOrder } from '@/util/form.validator';
+import { placeOrder, removeItemFromCart } from '@/store/order/order.slice';
+import ICustomer from '@/types/customer.interface';
+import notify from '@/config/toast.config';
+import { AppDispatch, RootState } from '@/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import useErrorNotifyHandler from '@/hooks/useErrorNotifyHandler';
 
 /**
  * OrderForm Component
- * 
+ *
  * Renders the order form to place an order and provide customer information.
  * Displays cart items and the total order amount.
  * Handles form validation and submission of the order.
- * 
+ *
  * @returns {JSX.Element} JSX Element representing the OrderForm.
  */
 
 const OrderForm = () => {
-  const [validationResult, setValidationResult] = useState<string[]>([])
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [validationResult, setValidationResult] = useState<string[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const router = useRouter()
-  const dispatch = useDispatch<AppDispatch>()
-  const cart = useSelector((state: RootState) => state.orderSlice.cart)
-  const total = useSelector((state: RootState) => state.orderSlice.totalOrder)
-  const error = useSelector((state: RootState) => state.productSlice.error)
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+  const cart = useSelector((state: RootState) => state.orderSlice.cart);
+  const total = useSelector((state: RootState) => state.orderSlice.totalOrder);
+  const error = useSelector((state: RootState) => state.productSlice.error);
 
   const [formData, setFormData] = useState<ICustomer>({
     customerName: '',
     address: '',
     contact: '',
-  })
+  });
 
   useEffect(() => {
-    const errors = validateOrder(formData)
+    const validateAndSetErrors = async () => {
+      const errors = await validateOrder(formData);
+      isSubmitted && setValidationResult(errors);
+    };
 
-    isSubmitted && setValidationResult(errors)
-  }, [formData, isSubmitted])
+    validateAndSetErrors();
+  }, [formData, isSubmitted]);
 
   const handleChange = (customerName: string, value: string) => {
-    setFormData({ ...formData, [customerName]: value })
-  }
+    setFormData({ ...formData, [customerName]: value });
+  };
 
   useErrorNotifyHandler(error);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitted(true)
-    const errors = validateOrder(formData)
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    const errors = await validateOrder(formData);
     if (errors.length === 0) {
-      dispatch(placeOrder(formData))
-        .then((response) => {
-          if (response.payload) {
-            notify("Order placed successful!")
-            router.replace('/', undefined, { shallow: true })
-          }
-        })
+      dispatch(placeOrder(formData)).then((response) => {
+        if (response.payload) {
+          notify('Order placed successful!');
+          router.replace('/', undefined, { shallow: true });
+        }
+      });
     }
-  }
+  };
 
   const isFormValid = (inputName: string): boolean =>
-    !!validationResult.find(result => result === inputName)
+    !!validationResult.find((result) => result === inputName);
 
   return (
     <Container>
       <Row>
-        <h2 className="mb-5">Place your order</h2>
+        <h2 className='mb-5'>Place your order</h2>
         <Col md={{ span: 5, offset: 1 }}>
           <h4>Cart Items</h4>
           {cart.map((item) => (
@@ -87,7 +89,12 @@ const OrderForm = () => {
                       Price: {item.quantity} x {item.price}
                     </Card.Text>
                     {/* Close button */}
-                    <Button variant="danger" onClick={() => dispatch(removeItemFromCart(item.productId))}>
+                    <Button
+                      variant='danger'
+                      onClick={() =>
+                        dispatch(removeItemFromCart(item.productId))
+                      }
+                    >
                       Remove Item
                     </Button>
                   </Card.Body>
@@ -96,7 +103,7 @@ const OrderForm = () => {
             </Card>
           ))}
 
-          <p className="mt-3">Total order: Rs {total.toFixed(2)}</p>
+          <p className='mt-3'>Total order: Rs {total.toFixed(2)}</p>
         </Col>
         <Col md={{ span: 5, offset: 1 }}>
           <h4>Customer Information</h4>
@@ -125,14 +132,19 @@ const OrderForm = () => {
               onChange={(value) => handleChange('contact', value)}
               isInvalid={isFormValid('contact')}
             />
-            <Button className="mt-2" variant="primary" type="submit" disabled={cart.length <= 0}>
+            <Button
+              className='mt-2'
+              variant='primary'
+              type='submit'
+              disabled={cart.length <= 0}
+            >
               Place Order
             </Button>
           </Form>
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default OrderForm
+export default OrderForm;

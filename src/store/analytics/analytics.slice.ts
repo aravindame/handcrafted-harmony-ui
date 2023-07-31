@@ -53,7 +53,7 @@ const http = axios.create({
 export const getAnalytics = createAsyncThunk<IAnalyticItem[], void>(
   'analytic/analytics',
   async (_, thunkAPI) => {
-    const session:any = await getSession();
+    const session: any = await getSession();
     const token = session?.accessToken;
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -63,10 +63,14 @@ export const getAnalytics = createAsyncThunk<IAnalyticItem[], void>(
     };
 
     try {
-      const response = await http.get<IAnalyticItem[]>('/analytics', { headers });
+      const response = await http.get<IAnalyticItem[]>('/analytics', {
+        headers,
+      });
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue((error as any).message || 'Something went wrong');
+      return thunkAPI.rejectWithValue(
+        (error as any).message || 'Something went wrong'
+      );
     }
   }
 );
@@ -78,7 +82,7 @@ export const getAnalytics = createAsyncThunk<IAnalyticItem[], void>(
 export const getOrders = createAsyncThunk<IOrders[], void>(
   'analytic/orders',
   async (_, thunkAPI) => {
-    const session:any = await getSession();
+    const session: any = await getSession();
     const token = session?.accessToken;
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -91,7 +95,9 @@ export const getOrders = createAsyncThunk<IOrders[], void>(
       const response = await http.get<IOrders[]>('/orders', { headers });
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue((error as any)?.message || 'Something went wrong');
+      return thunkAPI.rejectWithValue(
+        (error as any)?.message || 'Something went wrong'
+      );
     }
   }
 );
@@ -118,7 +124,9 @@ const analyticSlice = createSlice({
     builder.addCase(getAnalytics.rejected, (state, action) => {
       state.loading = false;
       state.analytics = [];
-      state.error = action.payload ? action.payload.toString() : 'Something went wrong';
+      state.error = action.payload
+        ? action.payload.toString()
+        : 'Something went wrong';
     });
 
     // Orders
@@ -137,7 +145,9 @@ const analyticSlice = createSlice({
     builder.addCase(getOrders.rejected, (state, action) => {
       state.loading = false;
       state.orders = [];
-      state.error = action.payload ? action.payload.toString() : 'Something went wrong';
+      state.error = action.payload
+        ? action.payload.toString()
+        : 'Something went wrong';
     });
   },
 });

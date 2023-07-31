@@ -1,21 +1,21 @@
-import { ToastOptions, toast } from "react-toastify";
+import { ToastOptions, toast } from 'react-toastify';
 
 // Enum for theme options
 enum ToastTheme {
-  Light = "light",
-  Dark = "dark",
+  Light = 'light',
+  Dark = 'dark',
 }
 
 // Constants for status
 const ToastStatus = {
-  Success: "success",
-  Warning: "warning",
-  Error: "error",
+  Success: 'success',
+  Warning: 'warning',
+  Error: 'error',
 };
 
 // Default options for toast messages
 const defaultOptions: ToastOptions = {
-  position: "top-center",
+  position: 'top-center',
   autoClose: 5000,
   hideProgressBar: false,
   closeOnClick: true,
@@ -27,9 +27,9 @@ const defaultOptions: ToastOptions = {
 
 /**
  * notify Function
- * 
+ *
  * Function to display toast notifications using react-toastify.
- * 
+ *
  * @param {string} message - The message to display in the toast notification.
  * @param {string} status - The status of the toast notification. Default is 'success'.
  */

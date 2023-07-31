@@ -50,117 +50,136 @@ const http = axios.create({
 /**
  * Async thunk to fetch all products.
  */
-export const getAllProducts = createAsyncThunk<IProduct[], void>('product/getAllProducts', async () => {
-  try {
-    const session:any = await getSession();
-    const token = session?.accessToken;
-    console.log(token)
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json, text/plain, */*',
-        Host: process.env.HEADERS_HOST,
-        Origin: process.env.HEADERS_ORIGIN,
-      },
-    };
-    const response = await http.get<IProduct[]>('/products', headers);
-    return response.data;
-  } catch (error) {
-    throw new Error('Failed to fetch products');
+export const getAllProducts = createAsyncThunk<IProduct[], void>(
+  'product/getAllProducts',
+  async () => {
+    try {
+      const session: any = await getSession();
+      const token = session?.accessToken;
+      console.log(token);
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json, text/plain, */*',
+          Host: process.env.HEADERS_HOST,
+          Origin: process.env.HEADERS_ORIGIN,
+        },
+      };
+      const response = await http.get<IProduct[]>('/products', headers);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to fetch products');
+    }
   }
-});
+);
 
 /**
  * Async thunk to add a new product.
  * @param product - The product to be added.
  */
-export const addNewProduct = createAsyncThunk<IProduct, IProduct>('product/addNew', async (product) => {
-  try {
-    const session:any = await getSession();
-    const token = session?.accessToken;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json, text/plain, */*',
-        Host: process.env.HEADERS_HOST,
-        Origin: process.env.HEADERS_ORIGIN,
-      },
-    };
-    const response = await http.post<IProduct>('/products', product, headers);
-    return response.data;
-  } catch (error) {
-    throw new Error('Failed to add a new product');
+export const addNewProduct = createAsyncThunk<IProduct, IProduct>(
+  'product/addNew',
+  async (product) => {
+    try {
+      const session: any = await getSession();
+      const token = session?.accessToken;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json, text/plain, */*',
+          Host: process.env.HEADERS_HOST,
+          Origin: process.env.HEADERS_ORIGIN,
+        },
+      };
+      const response = await http.post<IProduct>('/products', product, headers);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to add a new product');
+    }
   }
-});
+);
 
 /**
  * Async thunk to fetch a product by ID.
  * @param id - The ID of the product to be fetched.
  */
-export const getProductById = createAsyncThunk<IProduct, string>('product/getProductById', async (id) => {
-  try {
-    const session:any = await getSession();
-    const token = session?.accessToken;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json, text/plain, */*',
-        Host: process.env.HEADERS_HOST,
-        Origin: process.env.HEADERS_ORIGIN,
-      },
-    };
-    const response = await http.get<IProduct>(`/products/${id}`, headers);
-    return response.data;
-  } catch (error) {
-    throw new Error('Failed to fetch product by ID');
+export const getProductById = createAsyncThunk<IProduct, string>(
+  'product/getProductById',
+  async (id) => {
+    try {
+      const session: any = await getSession();
+      const token = session?.accessToken;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json, text/plain, */*',
+          Host: process.env.HEADERS_HOST,
+          Origin: process.env.HEADERS_ORIGIN,
+        },
+      };
+      const response = await http.get<IProduct>(`/products/${id}`, headers);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to fetch product by ID');
+    }
   }
-});
+);
 
 /**
  * Async thunk to update a product.
  * @param data - The data required to update the product.
  */
-export const updateProduct = createAsyncThunk<IProduct, IUpdateProduct>('product/update', async (data) => {
-  try {
-    const session:any = await getSession();
-    const token = session?.accessToken;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json, text/plain, */*',
-        Host: process.env.HEADERS_HOST,
-        Origin: process.env.HEADERS_ORIGIN,
-      },
-    };
-    const response = await http.put(`/products/${data.id}`, data.product, headers);
-    return response.data;
-  } catch (error) {
-    throw new Error('Failed to update product');
+export const updateProduct = createAsyncThunk<IProduct, IUpdateProduct>(
+  'product/update',
+  async (data) => {
+    try {
+      const session: any = await getSession();
+      const token = session?.accessToken;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json, text/plain, */*',
+          Host: process.env.HEADERS_HOST,
+          Origin: process.env.HEADERS_ORIGIN,
+        },
+      };
+      const response = await http.put(
+        `/products/${data.id}`,
+        data.product,
+        headers
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to update product');
+    }
   }
-});
+);
 
 /**
  * Async thunk to remove a product.
  * @param id - The ID of the product to be removed.
  */
-export const removeProduct = createAsyncThunk<string, string>('product/remove', async (id) => {
-  try {
-    const session:any = await getSession();
-    const token = session?.accessToken;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json, text/plain, */*',
-        Host: process.env.HEADERS_HOST,
-        Origin: process.env.HEADERS_ORIGIN,
-      },
-    };
-    await http.delete(`/products/${id}`, headers);
-    return id;
-  } catch (error) {
-    throw new Error('Failed to remove product');
+export const removeProduct = createAsyncThunk<string, string>(
+  'product/remove',
+  async (id) => {
+    try {
+      const session: any = await getSession();
+      const token = session?.accessToken;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json, text/plain, */*',
+          Host: process.env.HEADERS_HOST,
+          Origin: process.env.HEADERS_ORIGIN,
+        },
+      };
+      await http.delete(`/products/${id}`, headers);
+      return id;
+    } catch (error) {
+      throw new Error('Failed to remove product');
+    }
   }
-});
+);
 
 const productSlice = createSlice({
   name: 'product',
@@ -175,11 +194,12 @@ const productSlice = createSlice({
       state.products = action.payload;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     // Get all products
-    builder.addCase(getAllProducts.pending, (state) => {
-      state.loading = true;
-    })
+    builder
+      .addCase(getAllProducts.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(getAllProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload; // Replace the entire products array with the fetched data
@@ -192,7 +212,7 @@ const productSlice = createSlice({
       });
 
     // Add new product
-    builder.addCase(addNewProduct.pending, state => {
+    builder.addCase(addNewProduct.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(addNewProduct.fulfilled, (state, action) => {
@@ -206,7 +226,7 @@ const productSlice = createSlice({
     });
 
     // Selected product
-    builder.addCase(getProductById.pending, state => {
+    builder.addCase(getProductById.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(getProductById.fulfilled, (state, action) => {
@@ -221,11 +241,13 @@ const productSlice = createSlice({
     });
 
     // Update product
-    builder.addCase(updateProduct.pending, state => {
+    builder.addCase(updateProduct.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(updateProduct.fulfilled, (state, action) => {
-      const index = state.products.findIndex(product => product.id === action.payload.id);
+      const index = state.products.findIndex(
+        (product) => product.id === action.payload.id
+      );
       if (index !== -1) {
         state.products[index] = action.payload;
       }
@@ -238,11 +260,13 @@ const productSlice = createSlice({
     });
 
     // Remove product
-    builder.addCase(removeProduct.pending, state => {
+    builder.addCase(removeProduct.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(removeProduct.fulfilled, (state, action) => {
-      state.products = state.products.filter(product => product.id !== action.payload);
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload
+      );
       state.loading = false;
       state.error = '';
     });

@@ -1,3 +1,3 @@
-import Analytics from '@/components/pages/analytics-page';
+import Analytics from '@/components/pages/AnalyticsPage';
 
-export default () => <Analytics />
+export default () => <Analytics />;

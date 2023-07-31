@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap';
 
 /**
  * Reusable Input component using React Bootstrap Form.
@@ -7,17 +7,24 @@ import { Form } from 'react-bootstrap'
  */
 
 interface InputProps {
-  label: string,
-  value: string,
-  type: string,
-  placeholder: string,
-  onChange: (value: string) => void,
-  isInvalid?: boolean,
+  label: string;
+  value: string;
+  type: string;
+  placeholder: string;
+  onChange: (value: string) => void;
+  isInvalid?: boolean;
 }
 
-const Input = ({ label, value, type, placeholder, onChange, isInvalid }: InputProps) => {
+const Input = ({
+  label,
+  value,
+  type,
+  placeholder,
+  onChange,
+  isInvalid,
+}: InputProps) => {
   return (
-    <Form.Group className="mb-3" controlId={`formBasic${label}`}>
+    <Form.Group className='mb-3' controlId={`formBasic${label}`}>
       <Form.Label>{label}</Form.Label>
       <Form.Control
         type={type}
@@ -26,11 +33,11 @@ const Input = ({ label, value, type, placeholder, onChange, isInvalid }: InputPr
         onChange={(e) => onChange(e.target.value)}
         isInvalid={isInvalid}
       />
-      <Form.Control.Feedback type="invalid">
+      <Form.Control.Feedback type='invalid'>
         Please enter a valid {label.toLowerCase()}.
       </Form.Control.Feedback>
     </Form.Group>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Form, Row, Container, Col, Alert } from 'react-bootstrap';
 
-import Button from '@/components/atoms/button';
-import Input from '@/components/atoms/input';
+import Button from '@/components/atoms/Button';
+import Input from '@/components/atoms/Input';
 import IProduct from '@/types/product.interface';
 import { validateProduct } from '@/util/form.validator';
-import Select from '../atoms/select';
+import Select from '../atoms/Select';
 
 /**
  * ProductForm Component
- * 
+ *
  * Renders a form for adding or updating a product with the provided data.
  * Handles form validation and submission of the product data.
- * 
+ *
  * @param {IProductFormProps} props - Component props.
  * @param {Function} props.onSubmit - Function to handle form submission and pass the product data.
  * @param {IProduct | null} props.product - The product data to pre-fill the form for updating. Null for adding a new product.
- * 
+ *
  * @returns {JSX.Element} JSX Element representing the ProductForm.
  */
 
@@ -38,8 +38,10 @@ const productCategory = [
   { label: 'Food and Beverages', value: 'Food and Beverages' },
 ];
 
-
-const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProductFormProps) => {
+const ProductForm: React.FC<IProductFormProps> = ({
+  onSubmit,
+  product,
+}: IProductFormProps) => {
   const [validationResult, setValidationResult] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -48,23 +50,39 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
   const [category, setCategory] = useState(product?.category ?? 'Fashion');
   const [price, setPrice] = useState(product?.price ?? 0);
   const [imageUrl, setImageUrl] = useState(product?.imageUrl ?? '');
-  const [availableQuantity, setAvailableQuantity] = useState(product?.availableQuantity ?? 0);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(product?.imageUrl ?? '');
+  const [availableQuantity, setAvailableQuantity] = useState(
+    product?.availableQuantity ?? 0
+  );
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(
+    product?.imageUrl ?? ''
+  );
 
   useEffect(() => {
-    const errors = validateProduct({
-      title,
-      description,
-      category,
-      price,
-      imageUrl,
-      availableQuantity,
-    });
+    const validateAndSetErrors = async () => {
+      const errors = await validateProduct({
+        title,
+        description,
+        category,
+        price,
+        imageUrl,
+        availableQuantity,
+      });
 
-    isSubmitted && setValidationResult(errors);
-  }, [title, description, category, price, imageUrl, availableQuantity, isSubmitted]);
+      isSubmitted && setValidationResult(errors);
+    };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    validateAndSetErrors();
+  }, [
+    title,
+    description,
+    category,
+    price,
+    imageUrl,
+    availableQuantity,
+    isSubmitted,
+  ]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const currentDate = new Date().toISOString();
 
@@ -77,15 +95,20 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
       availableQuantity,
       createdAt: currentDate,
       updatedAt: currentDate,
-      isDeleted: false
+      isDeleted: false,
     };
 
-    const errors = validateProduct(newProduct);
+    try {
+      const errors = await validateProduct(newProduct);
 
-    if (errors.length === 0) {
-      onSubmit(newProduct);
-    } else {
-      setValidationResult(errors);
+      if (errors.length === 0) {
+        onSubmit(newProduct);
+      } else {
+        setValidationResult(errors);
+      }
+    } catch (error) {
+      // Handle any unexpected errors during validation
+      console.error('An error occurred during product validation:', error);
     }
 
     setIsSubmitted(true);
@@ -96,23 +119,27 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
     setImagePreviewUrl(value);
   };
 
-
   const isFormValid = (inputName: string): boolean =>
     !!validationResult.find((result) => result === inputName);
 
   return (
-    <Form noValidate validated={false} className="mt-5" onSubmit={handleSubmit}>
+    <Form noValidate validated={false} className='mt-5' onSubmit={handleSubmit}>
       <Container>
-        <Row className="mb-3">
+        <Row className='mb-3'>
           <Col md={{ span: 4, offset: 1 }}>
-          {imagePreviewUrl === '' ? (
-              <Alert variant="primary">Please upload valid image URL</Alert>
-            ):(<img
-              src={imagePreviewUrl}
-              alt='Product Preview'
-              style={{ maxWidth: '400px', maxHeight: '600px', marginBottom: '10px' }}
-            />)}
-            
+            {imagePreviewUrl === '' ? (
+              <Alert variant='primary'>Please upload valid image URL</Alert>
+            ) : (
+              <img
+                src={imagePreviewUrl}
+                alt='Product Preview'
+                style={{
+                  maxWidth: '400px',
+                  maxHeight: '600px',
+                  marginBottom: '10px',
+                }}
+              />
+            )}
           </Col>
           <Col md={{ span: 4, offset: 1 }}>
             <Input
@@ -161,7 +188,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ onSubmit, product }: IProduc
               onChange={handleImageUrlChange}
               isInvalid={isFormValid('imageUrl')}
             />
-            <Button variant="primary" type="submit">
+            <Button variant='primary' type='submit'>
               {product ? 'Update' : 'Submit'}
             </Button>
           </Col>

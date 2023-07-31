@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { useEffect, useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 
 /**
  * A reusable confirmation modal component that displays a modal dialog with a confirmation message and two buttons (Confirm and Cancel).
@@ -7,33 +7,41 @@ import { Button, Modal } from 'react-bootstrap'
  * @returns {JSX.Element} The ConfirmationModal component displaying the modal dialog.
  */
 
-type VariantType = 'primary' | 'danger'
+type VariantType = 'primary' | 'danger';
 interface ConfirmationModalProps {
-  title: string
-  message: string
-  confirmBtnText: string
-  isModalVisible: boolean
-  variant: VariantType,
-  onConfirm: () => void
-  onCancel: () => void
+  title: string;
+  message: string;
+  confirmBtnText: string;
+  isModalVisible: boolean;
+  variant: VariantType;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
 
-export default ({ isModalVisible, title, message, confirmBtnText, variant = 'primary', onConfirm, onCancel }: ConfirmationModalProps) => {
-  const [showModal, setShowModal] = useState(false)
+const ModalComponent = ({
+  isModalVisible,
+  title,
+  message,
+  confirmBtnText,
+  variant = 'primary',
+  onConfirm,
+  onCancel,
+}: ConfirmationModalProps) => {
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    setShowModal(isModalVisible)
-  }, [isModalVisible])
+    setShowModal(isModalVisible);
+  }, [isModalVisible]);
 
   const handleConfirm = () => {
-    onConfirm()
-    setShowModal(false)
-  }
+    onConfirm();
+    setShowModal(false);
+  };
 
   const handleCancel = () => {
-    onCancel()
-    setShowModal(false)
-  }
+    onCancel();
+    setShowModal(false);
+  };
 
   return (
     <Modal show={showModal} onHide={() => handleCancel()}>
@@ -42,7 +50,7 @@ export default ({ isModalVisible, title, message, confirmBtnText, variant = 'pri
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleCancel()}>
+        <Button variant='secondary' onClick={() => handleCancel()}>
           Cancel
         </Button>
         <Button variant={variant} onClick={handleConfirm}>
@@ -50,5 +58,7 @@ export default ({ isModalVisible, title, message, confirmBtnText, variant = 'pri
         </Button>
       </Modal.Footer>
     </Modal>
-  )
-}
+  );
+};
+
+export default ModalComponent;

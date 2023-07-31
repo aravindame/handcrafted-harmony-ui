@@ -1,7 +1,6 @@
-
-import { RootState } from '@/store/store'
-import { Accordion, Card, Container, Table } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store';
+import { Accordion, Card, Container, Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 /**
  * A component that displays the summary of orders.
@@ -10,7 +9,7 @@ import { useSelector } from 'react-redux'
  */
 
 const OrderSummary = () => {
-  const orders = useSelector((state:RootState) => state.analyticSlice.orders)
+  const orders = useSelector((state: RootState) => state.analyticSlice.orders);
 
   return (
     <Container>
@@ -34,18 +33,22 @@ const OrderSummary = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {
-                        order.orderItems.map(item =>
-                          <tr key={item?.productId}>
-                            <td>{item.title}</td>
-                            <td>{item.quantity}</td>
-                            <td>{item.price}</td>
-                            <td>
-                              <Card.Img src={item.imageUrl} alt={item.title} width="50" height="50" className="object-fit-cover" />
-                            </td>
-                          </tr>
-                        )
-                      }
+                      {order.orderItems.map((item) => (
+                        <tr key={item?.productId}>
+                          <td>{item.title}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.price}</td>
+                          <td>
+                            <Card.Img
+                              src={item.imageUrl}
+                              alt={item.title}
+                              width='50'
+                              height='50'
+                              className='object-fit-cover'
+                            />
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </Table>
                   <p>Address: {order.address}</p>
@@ -56,7 +59,7 @@ const OrderSummary = () => {
         ))}
       </Accordion>
     </Container>
-  )
-}
+  );
+};
 
-export default OrderSummary
+export default OrderSummary;

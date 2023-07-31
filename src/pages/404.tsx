@@ -1,3 +1,3 @@
-import NotFoundPage from "@/components/pages/not-found-page";
+import NotFoundPage from '@/components/pages/NotFoundPage';
 
-export default ()=> <NotFoundPage />;
+export default () => <NotFoundPage />;
