@@ -7,7 +7,7 @@ import ProductItem from '@/components/molecules/ProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import withAuth from '@/hoc/withAuth';
-import BootstrapSpinner from '@/components/atoms/Spinner';
+import LoadingSpinner from '@/components/atoms/LoadingSpinner';
 /**
  * AnalyticsPage component displays analytics and sales summary data for the user.
  *
@@ -42,7 +42,7 @@ const AnalyticsPage = () => {
         <title>Analytics & Orders</title>
       </Head>
       <Container className='mt-4'>
-        {isLoading && <BootstrapSpinner />}
+        {isLoading && <LoadingSpinner />}
         <h1>Analytics</h1>
         <Row>
           <Col md={{ span: 11, offset: 1 }}>

@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import Head from 'next/head';
 import ProductCards from '@/components/organisms/ProductCards';
 import { getAllProducts } from '@/store/product/product.slice';
-import Spinner from '@/components/atoms/Spinner';
+import Spinner from '@/components/atoms/LoadingSpinner';
 import { AppDispatch, RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 

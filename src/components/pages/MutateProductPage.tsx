@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Spinner from '@/components/atoms/Spinner';
+import Spinner from '@/components/atoms/LoadingSpinner';
 import IProduct from '@/types/product.interface';
 import { addNewProduct, updateProduct } from '@/store/product/product.slice';
 import ManageProduct from '@/components/templates/ManageProduct';
