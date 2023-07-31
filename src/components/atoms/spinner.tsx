@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 
 /**
  * A simple loading spinner component using React Bootstrap Spinner.
