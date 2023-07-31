@@ -1,14 +1,13 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { Col, Container, Row, Table } from 'react-bootstrap';
-
 import OrderSummary from '@/components/organisms/OrderSummary';
 import { getAnalytics, getOrders } from '@/store/analytics/analytics.slice';
 import ProductItem from '@/components/molecules/ProductItem';
-import Spinner from '@/components/atoms/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import withAuth from '@/hoc/withAuth';
+import Spinner from '../atoms/Spinner';
 
 /**
  * AnalyticsPage component displays analytics and sales summary data for the user.
