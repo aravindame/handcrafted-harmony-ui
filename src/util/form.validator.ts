@@ -36,34 +36,37 @@ const productSchema = Yup.object().shape({
 /**
  * Validates the order details provided in the ICustomer object.
  * @param {ICustomer} customer - The ICustomer object containing customer details.
- * @returns {Promise<string[]>} A Promise that resolves to an array of error messages, if any, based on the validation rules.
+ * @returns {Promise<string[]>} A Promise that resolves to an array of schema attributes with validation rules.
  */
-
-const validateOrder = async (customer: ICustomer): Promise<string[]> => {
+const validateOrder = async (customer: ICustomer): Promise<string[] | any> => {
   try {
     await customerSchema.validate(customer, { abortEarly: false });
     return [];
   } catch (validationError) {
     if (validationError instanceof Yup.ValidationError) {
-      return validationError.errors;
+      // Extract attribute names with validation rules
+      const schemaAttributes = validationError.inner.map((error) => error.path);
+      return schemaAttributes;
     }
     throw validationError;
   }
 };
 
+
 /**
  * Validates the product details provided in the IProduct object.
  * @param {IProduct} product - The IProduct object containing product details.
- * @returns {Promise<string[]>} A Promise that resolves to an array of error messages, if any, based on the validation rules.
+ * @returns {Promise<string[]>} A Promise that resolves to an array of schema attributes with validation rules.
  */
-
-const validateProduct = async (product: IProduct): Promise<string[]> => {
+const validateProduct = async (product: IProduct): Promise<string[] | any> => {
   try {
     await productSchema.validate(product, { abortEarly: false });
     return [];
   } catch (validationError) {
     if (validationError instanceof Yup.ValidationError) {
-      return validationError.errors;
+      // Extract attribute names with validation rules
+      const schemaAttributes = validationError.inner.map((error) => error.path);
+      return schemaAttributes;
     }
     throw validationError;
   }
