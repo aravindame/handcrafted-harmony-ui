@@ -1,18 +1,18 @@
-import Spinner from 'react-bootstrap/Spinner';
+import { Spinner as BootstrapSpinner } from 'react-bootstrap';
 
 /**
  * A simple loading spinner component using React Bootstrap Spinner.
- * @returns {JSX.Element} The LoadingSpinner component displaying a loading spinner animation.
+ * @returns {JSX.Element} The Spinner component displaying a loading spinner animation.
  */
-
-const SpinnerComponent = () => {
+const Spinner = () => {
   return (
     <div className='container'>
-      <Spinner animation='border' role='status'>
+      <BootstrapSpinner animation='border' role='status'>
         <span className='visually-hidden'>Loading...</span>
-      </Spinner>
+      </BootstrapSpinner>
     </div>
   );
 };
 
-export default SpinnerComponent;
+export default Spinner;
+
